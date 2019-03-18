@@ -1,0 +1,30 @@
+{
+    "name": "poster-server",
+    "version": "1.0.0",
+    "description": "generate poster using node,chromeheadless",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jankergg/poster-server.git"
+    },
+    "keywords": [
+        "poster",
+        "node",
+        "chromeheadless"
+    ],
+    "author": "janko.zhang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jankergg/poster-server/issues"
+    },
+    "homepage": "https://github.com/jankergg/poster-server#readme",
+    "dependencies": {
+        "express": "^4.16.4",
+        "puppeteer": "^1.13.0",
+        "shelljs": "^0.8.3"
+    }
+}

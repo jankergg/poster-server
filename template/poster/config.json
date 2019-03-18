@@ -1,0 +1,18 @@
+{
+    "user":{
+        "name": "janko",
+        "avatar": "./header.png"
+    },
+    "movie":{
+        "title": "希望为电影",
+        "author":"[美] 特德·霍普",
+        "cover": "./bookcover.png"
+    },
+    "comment":{
+        "readingTime":8,
+        "content":
+            "“有些黑人撒谎，有些黑人不道德，有些黑人在女人面前不规矩——不管她们是黑种女人还是白种女人。但是，这种真相适用于人类所有的种族，而不 仅仅是某个特殊的种族。在这个法庭里的人，没有人没撒过谎，没有人没做过不道德的事，没有一个男人会看女人时从来不带欲望。”"
+    },
+    "qrcode":"./qrcode.png",
+    "sharebook": true
+}
