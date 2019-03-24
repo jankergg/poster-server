@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Poster</title>
-    <style type="text/css"> 
+    <style type="text/css">
         html,body,div{margin:0;padding:0;}
     </style>
 </head>
@@ -112,17 +112,21 @@
             var sharebook= document.querySelector("#sharebook");
             var content = document.querySelector("#content");
             name.innerHTML = options.user.name;
-            title.innerHTML = options.movie.title;
+            title.innerHTML = options.movie.title.substr(0, 10);
             author.innerHTML = options.movie.author;
-            avatar.setAttribute('xlink:href', options.user.avatar)
-            bookcover.setAttribute('xlink:href', options.movie.cover)
-            qrcode.setAttribute('xlink:href', options.qrcode)
+            avatar.setAttribute('xlink:href', replaceWithPath(options.user.avatar))
+            bookcover.setAttribute('xlink:href', replaceWithPath(options.movie.cover))
+            qrcode.setAttribute('xlink:href', replaceWithPath(options.qrcode))
             readingtime.innerHTML = "阅读时长：约" + options.comment.readingTime + "个小时";
             content.innerHTML = renderTspan(options.comment.content)
-            
+
             if(!options.sharebook){
                 sharebook.style.display="none"
             }
+        }
+
+        function replaceWithPath(url){
+            return url.replace(/^https:\/\/www.qingyouyuedu.com/, '../../../php-server/public')
         }
 
         function renderTspan(text){
@@ -137,20 +141,20 @@
                 inity+=50;
             }
             return res.join('');
-        } 
-        
+        }
+
         function splitToLine(str){
             // TODO: abstract to common use.
             const base = 21;
             var cur = 0;
             const res = [];
             // judge probable line numbers
-            const lines = parseInt(str.length/base);  
+            const lines = parseInt(str.length/base);
 
             const cvs = document.createElement('canvas');
             const ctx = cvs.getContext('2d');
             ctx.font = "24px PingFangSC-Regular, PingFang SC";
-            
+
             var ns = str.substr(cur, base+1);
             while(ns.length){
                 debugger;
@@ -161,10 +165,10 @@
                     }
                     ns = str.substr(cur, ns.length+1)
                     continue;
-                } 
+                }
                 res.push(ns) ;
                 cur += ns.length;
-                ns = str.substr(cur, base+1) 
+                ns = str.substr(cur, base+1)
             }
             return res;
         }
