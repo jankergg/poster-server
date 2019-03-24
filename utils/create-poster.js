@@ -3,11 +3,11 @@ const shell = require('shelljs');
 const {createHash} = require('./create-hash.js');
 
 const fileName = createHash({secret: 'UserName', text: "information in json"});
-const filePath = '/Users/janko/Projects/wxApp/node-server/images/poster/'
+const filePath = '/home/www/php-server/static/images/poster/'
 const defaultOptions = {
     //templateUrl: 'file:///Users/janko/Projects/frontEnd/chromeheadless/examples/poster/index.html' ,
     //filePath: `/home/www/php-server/static/images/poster/${fileName}.png`
-    templateUrl: 'file:///Users/janko/Projects/wxApp/node-server/template/poster/index.html' ,
+    templateUrl: 'file:///home/www/node-server/template/poster/index.html' ,
     fileName: fileName,
     filePath: filePath,
     fullPath: filePath + fileName + '.png',
@@ -20,7 +20,7 @@ const defaultOptions = {
 
 exports.createPoster = async (options={}) => {
     options = {...defaultOptions, ...options}
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     page.setViewport(options.viewPort);
     //await page.goto(options.templateUrl);
