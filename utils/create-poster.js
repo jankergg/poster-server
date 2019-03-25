@@ -3,7 +3,7 @@ const shell = require('shelljs');
 const {createHash} = require('./create-hash.js');
 
 const fileName = createHash({secret: 'UserName', text: "information in json"});
-const filePath = '/home/www/php-server/static/images/poster/'
+const filePath = '/home/www/php-server/public/images/poster/'
 const defaultOptions = {
     //templateUrl: 'file:///Users/janko/Projects/frontEnd/chromeheadless/examples/poster/index.html' ,
     //filePath: `/home/www/php-server/static/images/poster/${fileName}.png`

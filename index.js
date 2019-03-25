@@ -5,6 +5,8 @@ const {createPoster} = require('./utils/create-poster.js');
 const app = express();
 const port = 3000;
 
+const {createHash} = require('./utils/create-hash.js');
+
 // start chromeheadless then run the express server.
 createPoster().then(({page, browser, options})=>{
     // goto a specific page configed in options, which can be configured by passing parameter `options` to `createPoster`
@@ -18,23 +20,25 @@ createPoster().then(({page, browser, options})=>{
             //const time1 = Date.now()
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
+            const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
 
             page.evaluate((pageConf)=>{
                 // written in the page, use to update form fields.
                 update(pageConf)
             }, pageConf).then(()=>{
                 //// take a screenshot after eval js functions.
-                page.screenshot({path: options.fullPath, omitBackground: true}).then(()=>{ 
+                page.screenshot({path: options.filePath+fileName+'.png', omitBackground: true}).then(()=>{ 
                     // run png compress by calling pngquant.
+                   const wwwPath = 'https://www.qingyouyuedu.com/images/poster/';
                     const resp = {
-                        origin: options.fullPath
+                        origin: wwwPath+fileName+'.png'
                     }
-                    const shell_result = shell.exec(`pngquant --quality=65-80 ${options.fullPath} --output ${options.filePath}${options.fileName}-min.png --force`)
+                    const shell_result = shell.exec(`pngquant --quality=65-80 ${options.filePath+fileName+'.png'} --output ${options.filePath}${fileName}-min.png --force`)
                     if (shell_result.code !== 0) {
                         shell.echo('Error: png compress failed');
                         shell.exit(1);
                     } else {
-                        resp.min = options.filePath + options.fileName + '-min.png'
+                        resp.min = wwwPath + fileName + '-min.png'
                     }
                     //const timeconsume = Date.now() - time1 
                     //console.log(timeconsume/1000, '秒');
