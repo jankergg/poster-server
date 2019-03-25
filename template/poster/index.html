@@ -130,7 +130,7 @@
         }
 
         function renderTspan(text){
-            const texts = splitToLine(text);
+            const texts = splitToLine(text.substr(0, 130) + '...');
 
             var res = [];
             const len = texts.length
