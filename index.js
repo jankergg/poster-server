@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const {createPoster} = require('./utils/create-poster.js');
 const app = express();
 const port = 3000;
+var fs = require('fs');
 
 const {createHash} = require('./utils/create-hash.js');
 
@@ -21,15 +22,24 @@ createPoster().then(({page, browser, options})=>{
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
             const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
+            const wwwPath = 'https://www.qingyouyuedu.com/images/poster/';
+
+            if (fs.existsSync(options.filePath + fileName + '.png')) {
+                var rest = {
+                    origin: wwwPath + fileName + '.png',
+                    min: wwwPath + fileName + '-min.png',
+                    fromCatch: true
+                }
+                res.send(JSON.stringify(rest));
+            };
 
             page.evaluate((pageConf)=>{
                 // written in the page, use to update form fields.
                 update(pageConf)
             }, pageConf).then(()=>{
                 //// take a screenshot after eval js functions.
-                page.screenshot({path: options.filePath+fileName+'.png', omitBackground: true}).then(()=>{ 
+                page.screenshot({path: options.filePath+fileName+'.png', omitBackground: true}).then(()=>{
                     // run png compress by calling pngquant.
-                   const wwwPath = 'https://www.qingyouyuedu.com/images/poster/';
                     const resp = {
                         origin: wwwPath+fileName+'.png'
                     }
@@ -40,7 +50,7 @@ createPoster().then(({page, browser, options})=>{
                     } else {
                         resp.min = wwwPath + fileName + '-min.png'
                     }
-                    //const timeconsume = Date.now() - time1 
+                    //const timeconsume = Date.now() - time1
                     //console.log(timeconsume/1000, '秒');
 
                     // return image urls.
