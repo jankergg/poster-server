@@ -112,7 +112,8 @@
             var sharebook= document.querySelector("#sharebook");
             var content = document.querySelector("#content");
             name.innerHTML = options.user.name;
-            title.innerHTML = options.movie.title.substr(0, 14) + '...';
+            let _title = options.movie.title
+            title.innerHTML = _title.length>14 ? _title.substr(0, 14) + '...' : _title;
             author.innerHTML = options.movie.author;
             avatar.setAttribute('xlink:href', replaceWithPath(options.user.avatar))
             bookcover.setAttribute('xlink:href', replaceWithPath(options.movie.cover))
@@ -130,7 +131,8 @@
         }
 
         function renderTspan(text){
-            const texts = splitToLine(text.substr(0, 130) + '...');
+            let _text = text.length>130 ? text.substr(0, 130) + '...' : text
+            const texts = splitToLine(_text);
 
             var res = [];
             const len = texts.length
