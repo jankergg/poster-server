@@ -112,7 +112,7 @@
             var sharebook= document.querySelector("#sharebook");
             var content = document.querySelector("#content");
             name.innerHTML = options.user.name;
-            title.innerHTML = options.movie.title.substr(0, 10);
+            title.innerHTML = options.movie.title.substr(0, 14) + '...';
             author.innerHTML = options.movie.author;
             avatar.setAttribute('xlink:href', replaceWithPath(options.user.avatar))
             bookcover.setAttribute('xlink:href', replaceWithPath(options.movie.cover))
