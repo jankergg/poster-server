@@ -22,7 +22,7 @@ createPoster().then(({page, browser, options})=>{
             //const time1 = Date.now()
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
-            console.log(pageConf)
+            //console.log(pageConf)
             const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
             const wwwPath = config.local.wwwPath;
 
