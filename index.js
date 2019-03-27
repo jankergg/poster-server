@@ -5,6 +5,7 @@ const {createPoster} = require('./utils/create-poster.js');
 const app = express();
 const port = 3000;
 var fs = require('fs');
+const config = require('./page.json')
 
 const {createHash} = require('./utils/create-hash.js');
 
@@ -22,7 +23,7 @@ createPoster().then(({page, browser, options})=>{
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
             const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
-            const wwwPath = 'https://www.qingyouyuedu.com/images/poster/';
+            const wwwPath = config.local.wwwPath;
 
             if (fs.existsSync(options.filePath + fileName + '.png')) {
                 var rest = {
