@@ -23,6 +23,7 @@
     },
     "homepage": "https://github.com/jankergg/poster-server#readme",
     "dependencies": {
+        "canvas": "^2.4.1",
         "express": "^4.16.4",
         "puppeteer": "^1.13.0",
         "shelljs": "^0.8.3"

@@ -2,6 +2,7 @@ const shell = require('shelljs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {createPoster} = require('./utils/create-poster.js');
+const {toHTML} = require('./utils/processContent.js');
 const app = express();
 const port = 3000;
 var fs = require('fs');
@@ -22,7 +23,8 @@ createPoster().then(({page, browser, options})=>{
             //const time1 = Date.now()
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
-            console.log(pageConf)
+            pageConf.comment.content = toHTML(pageConf.comment.content)
+            // console.log(pageConf)
             const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
             const wwwPath = config.local.wwwPath;
 
@@ -60,10 +62,10 @@ createPoster().then(({page, browser, options})=>{
                 })
             })
 
-            page.on("pageerror", function(err) {  
+            page.on("pageerror", function(err) {
                 theTempValue = err.toString();
-                console.log("Page error: " + theTempValue); 
-                res.send("Page error: " + theTempValue); 
+                console.log("Page error: " + theTempValue);
+                res.send("Page error: " + theTempValue);
             })
                 // run js function end.
             });
