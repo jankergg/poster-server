@@ -160,16 +160,28 @@
             const ctx = cvs.getContext('2d');
             ctx.font = "24px PingFangSC-Regular, PingFang SC";
 
+            // new string 判断当前句是否需要换行
             var ns = str.substr(cur, base+1);
             while(ns.length){
-                debugger;
                 if(ctx.measureText(ns).width < 510){
+                    var br = ns.indexOf('\n');
+                    // 如果存在换行
+                    if(br > -1){
+                        let _nss = ns.split('\n');
+                        // ns 等于最后一项
+                        ns = _nss.splice(ns.length-1)
+                        res.push(..._nss)
+                        cur += (_nss.join('')).length
+                    }
+                    // 如果到达结尾
                     if(cur+ns.length==str.length){
                         res.push(ns);
                         break;
+                    } else {
+                    // 否则继续试图增加文字长度
+                        ns = str.substr(cur, ns.length + 1)
+                        continue;
                     }
-                    ns = str.substr(cur, ns.length+1)
-                    continue;
                 }
                 res.push(ns) ;
                 cur += ns.length;
