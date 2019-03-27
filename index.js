@@ -22,6 +22,7 @@ createPoster().then(({page, browser, options})=>{
             //const time1 = Date.now()
             // format of pageConf please check /template/poster/config.json
             const {pageConf}= req.body
+            console.log(pageConf)
             const fileName = createHash({secret: 'UserName', text:JSON.stringify(pageConf)});
             const wwwPath = config.local.wwwPath;
 
@@ -58,11 +59,17 @@ createPoster().then(({page, browser, options})=>{
                     res.send(JSON.stringify(resp));
                 })
             })
-            // run js function end.
-        });
+
+            page.on("pageerror", function(err) {  
+                theTempValue = err.toString();
+                console.log("Page error: " + theTempValue); 
+                res.send("Page error: " + theTempValue); 
+            })
+                // run js function end.
+            });
     })
 
 })
 
-app.listen(port, ()=>console.log('app is running at port: ' + port));
+    app.listen(port, ()=>console.log('app is running at port: ' + port));
 
