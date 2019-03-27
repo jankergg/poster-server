@@ -163,15 +163,19 @@
             // new string 判断当前句是否需要换行
             var ns = str.substr(cur, base+1);
             while(ns.length){
+                ns = ns.replace(/^\\n/, '')
                 if(ctx.measureText(ns).width < 510){
                     var br = ns.indexOf('\n');
                     // 如果存在换行
                     if(br > -1){
                         let _nss = ns.split('\n');
                         // ns 等于最后一项
-                        ns = _nss.splice(ns.length-1)
-                        res.push(..._nss)
-                        cur += (_nss.join('')).length
+                        ns = _nss.splice(_nss.length-1)[0]||ns;
+                        let __len = _nss.join('')
+                        if(__len.length){
+                            res.push(..._nss)
+                            cur += __len.length + 1
+                        }
                     }
                     // 如果到达结尾
                     if(cur+ns.length==str.length){
