@@ -119,7 +119,7 @@
             title.innerHTML = _title.length>14 ? _title.substr(0, 14) + '...' : _title;
             author.innerHTML = options.movie.author;
             avatar.setAttribute('xlink:href', replaceWithPath(options.user.avatar))
-            bookcover.setAttribute('xlink:href', replaceWithPath(options.movie.cover))
+            bookcover.setAttribute('xlink:href', replaceWithPath(options.movie.cover)||'../../../php-server/public/images/cover/default_cover.png')
             qrcode.setAttribute('xlink:href', replaceWithPath(options.qrcode))
             readingtime.innerHTML = "阅读时长：约" + options.comment.readingTime + "个小时";
             content.innerHTML = options.comment.content
