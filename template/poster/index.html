@@ -124,8 +124,10 @@
             readingtime.innerHTML = "阅读时长：约" + options.comment.readingTime + "个小时";
             content.innerHTML = options.comment.content
 
-            if(!options.sharebook){
+            if(parseInt(options.sharebook)!==1){
                 sharebook.style.display="none"
+            } else {
+                sharebook.style.display=""
             }
         }
 
